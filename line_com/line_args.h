@@ -8,6 +8,8 @@
 #include <string>
 typedef std::string arg_key;
 typedef std::set<arg_key> args_key;
+#define ARG_KEY_LEN (16)
+#define ARG_VALUE_LEN (32)
 class line_args
 {
 protected:
