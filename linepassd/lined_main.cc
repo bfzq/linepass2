@@ -9,16 +9,14 @@
 static void deinit()
 {
   // init顺序和deinit顺序相逆
-  lined_args::deinit();
+  line_args<lined_args_t>::deinit();
 }
 
 static int lined_args_init(int argc, char **argv)
 {
   int ret = ret_successful;
-  lined_args::init();
-  line_args *args = lined_args::get_instance();
-  args->init_keys({LISTEN_PORT, POOL_NUM, LOG_PATH, VERIFY_ID});
-  if ((ret = args->parse_args(argc, argv) == ret_failed))
+  line_args<lined_args_t>::init();
+  if ((ret = lined_parse_option(argc, argv) == ret_failed))
     return ret_failed;
   return ret_successful;
 }
@@ -33,6 +31,7 @@ int lined_main(int argc, char **argv)
     ret = lined_args_init(argc, argv);
     if (ret == ret_failed)
       break;
+    
     return ret_successful;
   }
   }
