@@ -11,7 +11,8 @@ struct lined_args_struct
 {
   uint listen_port;
   uint pool_num;
-  char log_path[512];
+  char log_path[LOG_PATH_LEN + 1];
+  char verify_id[VERIFY_ID_LEN + 1];
 };
 typedef struct lined_args_struct lined_args_t;
 class lined_args : public line_args

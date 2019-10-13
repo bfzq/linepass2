@@ -8,5 +8,6 @@
 #define LISTEN_PORT "listen-port"
 #define POOL_NUM "pool-num"
 #define LOG_PATH "log-path"
+#define VERIFY_ID "verify-id"
 
 #endif //LINEPASSC_LINED_ARGS_KEY_H

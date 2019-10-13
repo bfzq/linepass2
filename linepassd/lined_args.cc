@@ -82,6 +82,10 @@ static void lined_load_option(lined_args_t &args, const opt_t &opt)
   {
     strcpy(args.log_path, opt.value);
   }
+  else if (strcmp(opt.key, VERIFY_ID) == 0)
+  {
+    strcpy(args.verify_id, opt.value);
+  }
 }
 
 static opt_t lined_check_option(const args_key &keys, const char *key,
@@ -124,7 +128,7 @@ int lined_args::parse_args(int argc, char **argv)
     lined_load_option(args_, opt);
   }
   line_log(DEBUG, LINED_LOG_TAG_OPTION, 0,
-           ".listen_port=%u .pool_num=%u .file_path=%s.",
-           args_.listen_port, args_.pool_num, args_.log_path);
+           ".listen_port=%u .pool_num=%u .file_path=%s .verify_id=%s",
+           args_.listen_port, args_.pool_num, args_.log_path, args_.verify_id);
   return ret_successful;
 }

@@ -17,7 +17,7 @@ static int lined_args_init(int argc, char **argv)
   int ret = ret_successful;
   lined_args::init();
   line_args *args = lined_args::get_instance();
-  args->init_keys({LISTEN_PORT, POOL_NUM, LOG_PATH});
+  args->init_keys({LISTEN_PORT, POOL_NUM, LOG_PATH, VERIFY_ID});
   if ((ret = args->parse_args(argc, argv) == ret_failed))
     return ret_failed;
   return ret_successful;
