@@ -8,6 +8,7 @@
 #include "lined_args_key.h"
 #include "line_log.h"
 #include "lined_log_tag.h"
+#include "lined_error.h"
 lined_args* lined_args::instance_ = nullptr;
 
 static void lined_args_init(lined_args_t &args)
@@ -87,12 +88,18 @@ static opt_t lined_check_option(const args_key &keys, const char *key,
   line_assert(key != nullptr);
   strncpy(opt.key, key, key_len);
   opt.key[key_len] = '\0';
-  args_key::const_iterator right_key = keys.find(key);
+  args_key::const_iterator right_key = keys.find(opt.key);
   if (right_key != keys.end())
   {
     char tmp_value[ARG_VALUE_LEN];
     strncpy(opt.value, value, value_len);
     opt.value[value_len] = '\0';
+  }
+  else
+  {
+    line_log(ERROR, LINED_LOG_TAG_OPTION, LINED_UNKNOWN_OPTION,
+             "Uknown option %s", opt.key);
+    opt = {0, 0};
   }
   return opt;
 }
@@ -108,12 +115,13 @@ int lined_args::parse_args(int argc, char **argv)
     if (opt == opt_t{0, 0})
     {
       //TODO: error log
+      line_log(ERROR, LINED_LOG_TAG_OPTION, LINED_CANT_PARSE_OPTION, "Parse options err.");
       return ret_failed;
     }
     lined_load_option(args_, opt);
   }
   line_log(DEBUG, LINED_LOG_TAG_OPTION, 0,
-           ".listen_port=%u .pool_num=%u .file_path=%s",
+           ".listen_port=%u .pool_num=%u .file_path=%s.",
            args_.listen_port, args_.pool_num, args_.log_path);
   return ret_successful;
 }

@@ -18,22 +18,22 @@ static void line_log_cat(char *log, const LOG_LEVEL level, const char *tag,
   {
   case ERROR:
   {
-    sprintf(log, "[time][ERROR][%s], errno: %d, %s. \n", tag, ecode, msg);
+    sprintf(log, "[time][ERROR][%s], errno: %d, %s \n", tag, ecode, msg);
     break;
   }
   case WARNING:
   {
-    sprintf(log, "[time][WARNING][%s], %s. \n", tag, msg);
+    sprintf(log, "[time][WARNING][%s], %s \n", tag, msg);
     break;
   }
   case DEBUG:
   {
-    sprintf(log, "[time][DEBUG][%s], errno: %d, %s. \n", tag, ecode, msg);
+    sprintf(log, "[time][DEBUG][%s], errno: %d, %s \n", tag, ecode, msg);
     break;
   }
   default:
   {
-    sprintf(log, "[time][INFO][%s], %s. \n", tag, msg);
+    sprintf(log, "[time][INFO][%s], %s \n", tag, msg);
     break;
   }
   }

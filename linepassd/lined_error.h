@@ -1,0 +1,7 @@
+#ifndef _LINED_ERROR_
+#define _LINED_ERROR_
+
+#define LINED_UNKNOWN_OPTION (1)
+#define LINED_CANT_PARSE_OPTION (2)
+
+#endif // _LINED_ERROR_
