@@ -8,32 +8,38 @@
 #include <stdio.h>
 #include "ret_code.h"             
 #include <cstdarg>
+#include <ctime>
+
+using namespace std;
 
 static LOG_LEVEL print_level = DEBUG;
 
 static void line_log_cat(char *log, const LOG_LEVEL level, const char *tag,
                          const uint ecode, const char *msg)
 {
+  time_t t = time(nullptr);
+  char now[100];
+  strftime(now, sizeof(now), "%A %c", localtime(&t));
   switch (level)
   {
   case ERROR:
   {
-    sprintf(log, "[time][ERROR][%s], errno: %d, %s \n", tag, ecode, msg);
+    sprintf(log, "[%s][ERROR][%s], errno: %d, %s \n", now,tag, ecode, msg);
     break;
   }
   case WARNING:
   {
-    sprintf(log, "[time][WARNING][%s], %s \n", tag, msg);
+    sprintf(log, "[%s][WARNING][%s], %s \n", now,tag, msg);
     break;
   }
   case DEBUG:
   {
-    sprintf(log, "[time][DEBUG][%s], errno: %d, %s \n", tag, ecode, msg);
+    sprintf(log, "[%s][DEBUG][%s], errno: %d, %s \n", now, tag, ecode, msg);
     break;
   }
   default:
   {
-    sprintf(log, "[time][INFO][%s], %s \n", tag, msg);
+    sprintf(log, "[%s][INFO][%s], %s \n", now, tag, msg);
     break;
   }
   }
