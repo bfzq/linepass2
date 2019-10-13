@@ -4,6 +4,9 @@
 
 #ifndef LINEPASSC_LINED_ARGS_KEY_H
 #define LINEPASSC_LINED_ARGS_KEY_H
+
 #define LISTEN_PORT "listen-port"
 #define POOL_NUM "pool-num"
+#define LOG_PATH "log-path"
+
 #endif //LINEPASSC_LINED_ARGS_KEY_H

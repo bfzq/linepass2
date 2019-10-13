@@ -78,6 +78,10 @@ static void lined_load_option(lined_args_t &args, const opt_t &opt)
   {
     args.pool_num = atoi(opt.value);
   }
+  else if (strcmp(opt.key, LOG_PATH) == 0)
+  {
+    strcpy(args.log_path, opt.value);
+  }
 }
 
 static opt_t lined_check_option(const args_key &keys, const char *key,
@@ -114,7 +118,6 @@ int lined_args::parse_args(int argc, char **argv)
     opt_t opt = lined_check_option(keys_, key, key_len, value, value_len);
     if (opt == opt_t{0, 0})
     {
-      //TODO: error log
       line_log(ERROR, LINED_LOG_TAG_OPTION, LINED_CANT_PARSE_OPTION, "Parse options err.");
       return ret_failed;
     }
