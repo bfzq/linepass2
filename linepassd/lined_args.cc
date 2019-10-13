@@ -112,6 +112,8 @@ int lined_args::parse_args(int argc, char **argv)
     }
     lined_load_option(args_, opt);
   }
-  line_log(DEBUG, LINED_LOG_TAG_OPTION, 0, "TEST");
+  line_log(DEBUG, LINED_LOG_TAG_OPTION, 0,
+           ".listen_port=%u .pool_num=%u .file_path=%s",
+           args_.listen_port, args_.pool_num, args_.log_path);
   return ret_successful;
 }
