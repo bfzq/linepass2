@@ -5,6 +5,7 @@ include_directories(line_com)
 add_executable(linepassd
         linepassd/lined_main.cc
         line_com/line_args.cc
+	line_com/line_log.cc
         linepassd/lined_args.cc
         linepassd/main.cc)
 add_executable(linepassc

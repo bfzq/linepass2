@@ -6,12 +6,15 @@
 #include "line_assert.h"
 #include "ret_code.h"
 #include "lined_args_key.h"
+#include "line_log.h"
+#include "lined_log_tag.h"
 lined_args* lined_args::instance_ = nullptr;
 
 static void lined_args_init(lined_args_t &args)
 {
   args.listen_port = 0;
   args.pool_num = 0;
+  args.log_path[0] = 0;
 }
 
 lined_args::lined_args()
@@ -109,5 +112,6 @@ int lined_args::parse_args(int argc, char **argv)
     }
     lined_load_option(args_, opt);
   }
+  line_log(DEBUG, LINED_LOG_TAG_OPTION, 0, "TEST");
   return ret_successful;
 }
