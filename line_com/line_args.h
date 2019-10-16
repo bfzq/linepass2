@@ -33,19 +33,22 @@ class line_args
  private:
   static line_args *instance_;
   args_key keys_;
+  // 静态成员函数指针
+  static void(*load_option_)(T&, const opt_t&);
   T args_;
  private:
   line_args() = default;
   ~line_args() = default;
  public:
-  static int init();
+  static int init(void(*load_option)(T&, const opt_t&));
   static int deinit();
   static line_args* get_instance();
  public:
-  int parse_args(int argc, char **argv, void(*load_option)(T&, const opt_t&));
+  int parse_args(int argc, char **argv);
+  int update_option(const char *key, const char *value);
   void init_keys(args_key keys);
  public:
-  const T* get_options();
+  const T* get_args();
 };
 
 extern void line_parse_args_item(const char *arg, char **key, uint &key_len,
@@ -59,10 +62,15 @@ template<typename T>
 line_args<T>* line_args<T>::instance_ = nullptr;
 
 template<typename T>
-int line_args<T>::init()
+void(*(line_args<T>::load_option_))(T&, const opt_t&) = nullptr;
+
+template<typename T>
+int line_args<T>::init(void(*load_option)(T&, const opt_t&))
 {
   line_assert(instance_ == nullptr);
+  load_option_ = load_option;
   instance_ = new line_args<T>();
+  return ret_successful;
 }
 
 template<typename T>
@@ -78,11 +86,11 @@ int line_args<T>::deinit()
   line_assert(instance_ != nullptr);
   delete instance_;
   instance_ = nullptr;
+  return ret_successful;
 }
 
 template<typename T>
-int line_args<T>::parse_args(int argc, char **argv,
-                             void(*load_option)(T&, const opt_t&))
+int line_args<T>::parse_args(int argc, char **argv)
 {
   char *key = nullptr, *value = nullptr;
   uint key_len = 0, value_len = 0;
@@ -95,8 +103,21 @@ int line_args<T>::parse_args(int argc, char **argv,
       line_log(ERROR, LINE_LOG_TAG_OPTION, LINE_CANT_PARSE_OPTION, "Parse options err.");
       return ret_failed;
     }
-    load_option(args_, opt);
+    load_option_(args_, opt);
   }
+  return ret_successful;
+}
+
+template<typename T>
+int line_args<T>::update_option(const char *key, const char *value)
+{
+  opt_t opt = line_check_option(keys_, key, strlen(key), value, strlen(value));
+  if (opt == opt_t{0, 0})
+  {
+    line_log(ERROR, LINE_LOG_TAG_OPTION, LINE_CANT_PARSE_OPTION, "Parse options err.");
+    return ret_failed;
+  }
+  load_option_(args_, opt);
   return ret_successful;
 }
 
@@ -107,7 +128,7 @@ void line_args<T>::init_keys(args_key keys)
 }
 
 template<typename T>
-const T*line_args<T>::get_options()
+const T* line_args<T>::get_args()
 {
   return &args_;
 }

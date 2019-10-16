@@ -17,5 +17,5 @@ struct lined_args_struct
 typedef struct lined_args_struct lined_args_t;
 
 int lined_parse_option(int argc, char **argv);
-
+void lined_load_option(lined_args_t &args, const opt_t &opt);
 #endif //LINEPASSC_LINED_ARGS_H

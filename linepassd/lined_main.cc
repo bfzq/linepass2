@@ -15,7 +15,7 @@ static void deinit()
 static int lined_args_init(int argc, char **argv)
 {
   int ret = ret_successful;
-  line_args<lined_args_t>::init();
+  line_args<lined_args_t>::init(lined_load_option);
   if ((ret = lined_parse_option(argc, argv) == ret_failed))
     return ret_failed;
   return ret_successful;

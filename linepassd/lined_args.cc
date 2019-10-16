@@ -11,7 +11,7 @@
 #include "lined_error.h"
 #include "debug.h"
 
-static void lined_load_option(lined_args_t &args, const opt_t &opt)
+void lined_load_option(lined_args_t &args, const opt_t &opt)
 {
   if (strcmp(opt.key, LISTEN_PORT) == 0)
   {
@@ -35,9 +35,9 @@ int lined_parse_option(int argc, char **argv)
 {
   line_args<lined_args_t> *args = line_args<lined_args_t>::get_instance();
   args->init_keys({LISTEN_PORT, POOL_NUM, LOG_PATH, VERIFY_ID});
-  args->parse_args(argc, argv, lined_load_option);
+  args->parse_args(argc, argv);
 #if !defined(DEBUG_OFF)
-  const lined_args_t *options = args->get_options();
+  const lined_args_t *options = args->get_args();
   line_log(DEBUG, LINE_LOG_TAG_OPTION, 0,
            ".listen_port=%u .pool_num=%u .file_path=%s .verify_id=%s",
            options->listen_port, options->pool_num, options->log_path,
