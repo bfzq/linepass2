@@ -5,8 +5,6 @@
 #ifndef LINEPASSC_LINE_GLOBAL_H
 #define LINEPASSC_LINE_GLOBAL_H
 
-typedef unsigned int uint;
-
 #define LOG_PATH_LEN (512)
 #define VERIFY_ID_LEN (16)
 

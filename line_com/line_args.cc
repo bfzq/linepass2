@@ -8,8 +8,8 @@
 
 
 
-void line_parse_args_item(const char *arg, char **key, uint &key_len,
-                          char **value, uint &value_len)
+void line_parse_args_item(const char *arg, char **key, uint32_t &key_len,
+                          char **value, uint32_t &value_len)
 {
   if (strlen(arg) <= 3)
     return;
@@ -25,8 +25,8 @@ void line_parse_args_item(const char *arg, char **key, uint &key_len,
 
 
 opt_t line_check_option(const args_key &keys, const char *key,
-                        const uint key_len, const char *value,
-                        const uint value_len)
+                        const uint32_t key_len, const char *value,
+                        const uint32_t value_len)
 {
   opt_t opt = {0, 0};
   line_assert(key != nullptr);

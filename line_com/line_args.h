@@ -51,12 +51,12 @@ class line_args
   const T* get_args();
 };
 
-extern void line_parse_args_item(const char *arg, char **key, uint &key_len,
-                                  char **value, uint &value_len);
+extern void line_parse_args_item(const char *arg, char **key, uint32_t &key_len,
+                                  char **value, uint32_t &value_len);
 
 extern opt_t line_check_option(const args_key &keys, const char *key,
-                                const uint key_len, const char *value,
-                                const uint value_len);
+                                const uint32_t key_len, const char *value,
+                                const uint32_t value_len);
 
 template<typename T>
 line_args<T>* line_args<T>::instance_ = nullptr;
@@ -93,7 +93,7 @@ template<typename T>
 int line_args<T>::parse_args(int argc, char **argv)
 {
   char *key = nullptr, *value = nullptr;
-  uint key_len = 0, value_len = 0;
+  uint32_t key_len = 0, value_len = 0;
   for (int i = 1; i < argc; ++i)
   {
     line_parse_args_item(argv[i], &key, key_len, &value, value_len);

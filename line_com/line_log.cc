@@ -15,7 +15,7 @@ using namespace std;
 static LOG_LEVEL print_level = DEBUG;
 
 static void line_log_cat(char *log, const LOG_LEVEL level, const char *tag,
-                         const uint ecode, const char *msg)
+                         const uint32_t ecode, const char *msg)
 {
   time_t t = time(nullptr);
   char now[100];
@@ -52,7 +52,7 @@ static int line_log_flush_to_file(const char *log)
   return ret_successful;
 }
 
-int line_log(const LOG_LEVEL level, const char *tag, const uint ecode,
+int line_log(const LOG_LEVEL level, const char *tag, const uint32_t ecode,
              const char *msg)
 {
   if (level < print_level)
@@ -62,7 +62,7 @@ int line_log(const LOG_LEVEL level, const char *tag, const uint ecode,
   return line_log_flush_to_file(log);
 }
 
-int line_log(const LOG_LEVEL level, const char *tag, const uint ecode,
+int line_log(const LOG_LEVEL level, const char *tag, const uint32_t ecode,
              const char *format, ...)
 {
   if (level < print_level)

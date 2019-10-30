@@ -9,8 +9,8 @@
 #include "line_global.h"
 struct lined_args_struct
 {
-  uint listen_port;
-  uint pool_num;
+  uint32_t listen_port;
+  uint32_t pool_num;
   char log_path[LOG_PATH_LEN + 1];
   char verify_id[VERIFY_ID_LEN + 1];
 };
