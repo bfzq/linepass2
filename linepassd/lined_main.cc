@@ -12,29 +12,36 @@ static void deinit()
   line_args<lined_args_t>::deinit();
 }
 
-static int lined_args_init(int argc, char **argv)
+static ret_type lined_args_init(int argc, char **argv)
 {
-  int ret = ret_successful;
+  ret_type ret = ret_successful;
   line_args<lined_args_t>::init(lined_load_option);
   if ((ret = lined_parse_option(argc, argv) == ret_failed))
     return ret_failed;
   return ret_successful;
 }
 
-int lined_main(int argc, char **argv)
+static ret_type main_init(int argc, char **argv)
 {
+  ret_type ret = ret_successful;
   switch (0)
   {
   case 0:
   {
-    int ret = ret_successful;
     ret = lined_args_init(argc, argv);
     if (ret == ret_failed)
       break;
-    
-    return ret_successful;
   }
   }
-  deinit();
-  return ret_failed;
+  return ret;
+}
+
+ret_type lined_main(int argc, char **argv)
+{
+  if (main_init(argc, argv) == ret_failed)
+  {
+    deinit();
+    return ret_failed;
+  }
+  return ret_successful;
 }

@@ -3,8 +3,18 @@
 //
 
 #include "linec_main.h"
+#include "ret_code.h"
 
-int linec_main(int argc, char **argv)
+// static int deinit
+
+static ret_type linec_args_init(int argc, char **argv)
 {
-  return 0;
+  int ret = ret_successful;
+  // line_args<linec_>
+  return ret;
+}
+
+ret_type linec_main(int argc, char **argv)
+{
+  return ret_successful;
 }
