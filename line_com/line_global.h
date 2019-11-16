@@ -5,6 +5,7 @@
 #ifndef LINEPASSC_LINE_GLOBAL_H
 #define LINEPASSC_LINE_GLOBAL_H
 
+#define STR_END_POS_LEN (1)
 #define LOG_PATH_LEN (512)
 #define VERIFY_ID_LEN (16)
 
