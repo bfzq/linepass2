@@ -6,6 +6,7 @@
 #define LINEPASSC_LINE_ARGS_H
 #include <set>
 #include <string>
+#include <cstring>
 #include "line_global.h"
 #include "ret_code.h"
 #include "line_log.h"

@@ -1,0 +1,6 @@
+#ifndef _LEPOLL_H_
+#define _LEPOLL_H_
+
+int register_epoll();
+
+#endif // _LEPOLL_H_
