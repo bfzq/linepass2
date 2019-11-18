@@ -8,12 +8,7 @@
 static uint wait_epoll_num_ = 0;
 static int wait_timeout_ = 0;
 
-ret_type register_epoll(int &epollfd,
-                        const int &socked,
-                        const uint32_t &register_events,
-                        const uint &register_num,
-                        const uint wait_epoll_num,
-                        const int wait_timeout)
+ret_type init_epoll(int &epollfd, const uint &register_num)
 {
   epollfd = epoll_create(register_num);
   if (epollfd == -1)
@@ -21,6 +16,14 @@ ret_type register_epoll(int &epollfd,
     line_log(ERROR, LINE_LOG_TAG_NET, errno, "Epoll init error.");
     return ret_failed;
   }
+  return ret_successful;
+}
+
+ret_type register_epoll(int &epollfd,
+                        const int &socked,
+                        const uint32_t &register_events)
+{
+
   struct epoll_event ev;
   ev.data.fd = socked;
   ev.events = register_events;
@@ -30,7 +33,6 @@ ret_type register_epoll(int &epollfd,
     line_log(ERROR, LINE_LOG_TAG_NET, errno, "Epoll init error.");
     return ret_failed;
   }
-  update_epoll_config(wait_epoll_num, wait_timeout);
   return ret_successful;
 }
 
@@ -45,8 +47,8 @@ ret_type wait_epoll(const int &epollfd,
                     struct epoll_event *events,
                     uint &events_num)
 {
-  int r = events_num = epoll_wait(epollfd, events, wait_epoll_num_, wait_timeout_);
-  if (r == -1)
+  events_num = epoll_wait(epollfd, events, wait_epoll_num_, wait_timeout_);
+  if (events_num == -1)
   {
     line_log(ERROR, LINE_LOG_TAG_NET, errno, "Wait epoll error.");
     return ret_failed;
