@@ -31,33 +31,33 @@ typedef line_option_struct opt_t;
 template<typename T>
 class line_args
 {
- private:
+private:
   static line_args *instance_;
   args_key keys_;
   // 静态成员函数指针
   static void(*load_option_)(T&, const opt_t&);
   T args_;
- private:
+private:
   line_args() = default;
   ~line_args() = default;
- public:
+public:
   static int init(void(*load_option)(T&, const opt_t&));
   static int deinit();
   static line_args* get_instance();
- public:
+public:
   int parse_args(int argc, char **argv);
   int update_option(const char *key, const char *value);
   void init_keys(args_key keys);
- public:
+public:
   const T* get_args();
 };
 
 extern void line_parse_args_item(const char *arg, char **key, uint32_t &key_len,
-                                  char **value, uint32_t &value_len);
+                                 char **value, uint32_t &value_len);
 
 extern opt_t line_check_option(const args_key &keys, const char *key,
-                                const uint32_t key_len, const char *value,
-                                const uint32_t value_len);
+                               const uint32_t key_len, const char *value,
+                               const uint32_t value_len);
 
 template<typename T>
 line_args<T>* line_args<T>::instance_ = nullptr;
