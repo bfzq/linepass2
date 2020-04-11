@@ -28,6 +28,12 @@ struct line_option_struct
   }
 };
 typedef line_option_struct opt_t;
+
+inline bool opt_is_empty(const opt_t &opt)
+{
+  return opt.key[0] == 0 && opt.value[0] == 0;
+}
+
 template<typename T>
 class line_args
 {
@@ -99,9 +105,10 @@ int line_args<T>::parse_args(int argc, char **argv)
   {
     line_parse_args_item(argv[i], &key, key_len, &value, value_len);
     opt_t opt = line_check_option(keys_, key, key_len, value, value_len);
-    if (opt == opt_t{0, 0})
+    if (opt_is_empty(opt) == true)
     {
-      line_log(ERROR, LINE_LOG_TAG_OPTION, LINE_CANT_PARSE_OPTION, "Parse options err.");
+      line_log(ERROR, LINE_LOG_TAG_OPTION, LINE_CANT_PARSE_OPTION,
+               "Parse options err.");
       return ret_failed;
     }
     load_option_(args_, opt);
@@ -113,7 +120,7 @@ template<typename T>
 int line_args<T>::update_option(const char *key, const char *value)
 {
   opt_t opt = line_check_option(keys_, key, strlen(key), value, strlen(value));
-  if (opt == opt_t{0, 0})
+  if (opt_is_empty(opt) == true)
   {
     line_log(ERROR, LINE_LOG_TAG_OPTION, LINE_CANT_PARSE_OPTION, "Parse options err.");
     return ret_failed;
